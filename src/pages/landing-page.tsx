@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -5,42 +6,57 @@ import { BookOpen, BookmarkIcon, HeartIcon, ListIcon } from "lucide-react";
 import { useBookmarks } from "@/hooks/useBookmarks";
 import { useLikes } from "@/hooks/useLikes";
 import { useLastReadSaakhi } from "@/hooks/useLastReadSaakhi";
-
-const saakhis = [
-  {
-    id: "1",
-    title: "The True Bargain",
-    guruJi: "Guru Nanak Dev Ji",
-  },
-  {
-    id: "2",
-    title: "The Carpenter's Honesty",
-    guruJi: "Guru Arjan Dev Ji",
-  },
-  {
-    id: "3",
-    title: "The Milk and the Jasmine Flower",
-    guruJi: "Guru Nanak Dev Ji",
-  },
-  {
-    id: "4",
-    title: "The Farmer's Faith",
-    guruJi: "Guru Amar Das Ji",
-  },
-  {
-    id: "5",
-    title: "The Humble King",
-    guruJi: "Guru Gobind Singh Ji",
-  },
-];
+import { fetchInitialData } from "@/api";
+import { SaakhiSummary } from "@/types";
 
 export function LandingPage() {
   const { bookmarks } = useBookmarks();
   const { likes } = useLikes();
   const { lastReadSaakhiId } = useLastReadSaakhi();
+  const [saakhisCount, setSaakhisCount] = useState<number | null>(null);
+  const [firstSaakhi, setFirstSaakhi] = useState<SaakhiSummary | null>(null);
+  const [lastReadSaakhi, setLastReadSaakhi] = useState<SaakhiSummary | null>(
+    null
+  );
+  const [likedSaakhis, setLikedSaakhis] = useState<SaakhiSummary[]>([]);
+  const [bookmakedSaakhis, setBookmakedSaakhis] = useState<SaakhiSummary[]>([]);
 
-  const firstSaakhi = saakhis[0];
-  const lastReadSaakhi = saakhis.find((s) => s.id === lastReadSaakhiId);
+  useEffect(() => {
+    const fetchData = async () => {
+      const initialData = await fetchInitialData(
+        lastReadSaakhiId,
+        likes,
+        bookmarks
+      );
+      const {
+        saakhisCount,
+        firstSaakhi: first,
+        lastReadSaakhi: lastRead,
+        likedSaakhis: liked,
+        bookmakedSaakhis: bookmarked,
+      } = initialData;
+
+      if (saakhisCount) {
+        setSaakhisCount(saakhisCount);
+      }
+
+      if (first) {
+        setFirstSaakhi(first);
+      }
+      if (lastRead) {
+        setLastReadSaakhi(lastRead);
+      }
+      if (liked.length > 0) {
+        setLikedSaakhis(liked);
+      }
+      if (bookmarked.length > 0) {
+        setBookmakedSaakhis(bookmarked);
+      }
+    };
+    if (lastReadSaakhiId || likes.length > 0 || bookmarks.length > 0) {
+      fetchData();
+    }
+  }, [lastReadSaakhiId, likes, bookmarks]);
 
   return (
     <div className="min-h-screen bg-orange-50">
@@ -52,31 +68,33 @@ export function LandingPage() {
 
       <main className="container mx-auto px-4 py-8">
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="text-xl font-semibold mb-2 text-orange-600">
-                Start reading
-              </h2>
-              <p className="text-gray-600 mb-4">
-                Begin your journey with the first saakhi.
-              </p>
-              <div className="text-sm text-gray-500">
-                <p>Title: {firstSaakhi.title}</p>
-                <p>Guru ji: {firstSaakhi.guruJi}</p>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button
-                asChild
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white"
-              >
-                <Link to={`/saakhis/${firstSaakhi.id}`}>
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  Read first saakhi
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
+          {firstSaakhi && (
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="text-xl font-semibold mb-2 text-orange-600">
+                  Start reading
+                </h2>
+                <p className="text-gray-600 mb-4">
+                  Begin your journey with the first saakhi.
+                </p>
+                <div className="text-sm text-gray-500">
+                  <p>Title: {firstSaakhi.title}</p>
+                  <p>Guru ji: {firstSaakhi.guruJiName}</p>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  asChild
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white"
+                >
+                  <Link to={`/saakhis/${firstSaakhi.id}`}>
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Read first saakhi
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          )}
 
           {lastReadSaakhi && (
             <Card>
@@ -89,7 +107,7 @@ export function LandingPage() {
                 </p>
                 <div className="text-sm text-gray-500">
                   <p>Title: {lastReadSaakhi.title}</p>
-                  <p>Guru ji: {lastReadSaakhi.guruJi}</p>
+                  <p>Guru ji: {lastReadSaakhi.guruJiName}</p>
                 </div>
               </CardContent>
               <CardFooter>
@@ -112,7 +130,7 @@ export function LandingPage() {
                 All saakhis
               </h2>
               <p className="text-gray-600 mb-4">
-                Explore our full collection of {saakhis.length} saakhis.
+                Explore our full collection of {saakhisCount} saakhis.
               </p>
             </CardContent>
             <CardFooter>
@@ -145,19 +163,23 @@ export function LandingPage() {
               ) : null}
 
               <ul className="space-y-2">
-                {bookmarks.slice(0, 5).map((id) => {
-                  const saakhi = saakhis.find((s) => s.id === id);
-                  return saakhi ? (
-                    <li key={id} className="border-b border-gray-200 pb-2">
+                {bookmakedSaakhis.slice(0, 5).map((bookmarkedSaakhi) => {
+                  return (
+                    <li
+                      key={bookmarkedSaakhi.id}
+                      className="border-b border-gray-200 pb-2"
+                    >
                       <Link
-                        to={`/saakhis/${id}`}
+                        to={`/saakhis/${bookmarkedSaakhi.id}`}
                         className="text-blue-600 hover:underline"
                       >
-                        {saakhi.title}
+                        {bookmarkedSaakhi.title}
                       </Link>
-                      <p className="text-sm text-gray-500">{saakhi.guruJi}</p>
+                      <p className="text-sm text-gray-500">
+                        {bookmarkedSaakhi.guruJiName}
+                      </p>
                     </li>
-                  ) : null;
+                  );
                 })}
               </ul>
             </CardContent>
@@ -185,19 +207,23 @@ export function LandingPage() {
               ) : null}
 
               <ul className="space-y-2">
-                {likes.slice(0, 5).map((id) => {
-                  const saakhi = saakhis.find((s) => s.id === id);
-                  return saakhi ? (
-                    <li key={id} className="border-b border-gray-200 pb-2">
+                {likedSaakhis.slice(0, 5).map((likedSaakhi) => {
+                  return (
+                    <li
+                      key={likedSaakhi.id}
+                      className="border-b border-gray-200 pb-2"
+                    >
                       <Link
-                        to={`/saakhis/${id}`}
+                        to={`/saakhis/${likedSaakhi.id}`}
                         className="text-blue-600 hover:underline"
                       >
-                        {saakhi.title}
+                        {likedSaakhi.title}
                       </Link>
-                      <p className="text-sm text-gray-500">{saakhi.guruJi}</p>
+                      <p className="text-sm text-gray-500">
+                        {likedSaakhi.guruJiName}
+                      </p>
                     </li>
-                  ) : null;
+                  );
                 })}
               </ul>
             </CardContent>
