@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -11,7 +11,6 @@ import {
   ChevronRightIcon,
   HomeIcon,
   ListIcon,
-  ArrowLeft,
 } from "lucide-react";
 import { useLastReadSaakhi } from "@/hooks/useLastReadSaakhi";
 import { useBookmarks } from "@/hooks/useBookmarks";
@@ -177,7 +176,7 @@ export function SaakhiPage() {
                 className={isSaakhiLiked ? "text-red-500" : "text-gray-500"}
               >
                 <HeartIcon className="mr-2 h-4 w-4" />
-                {isLiked ? "Liked" : "Like"}
+                {isSaakhiLiked ? "Liked" : "Like"}
               </Button>
             </div>
             <p className="text-gray-700 mb-6">{currentSaakhi.summary}</p>
