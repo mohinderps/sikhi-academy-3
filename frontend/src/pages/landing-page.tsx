@@ -36,9 +36,7 @@ export function LandingPage() {
         bookmakedSaakhis: bookmarked,
       } = initialData;
 
-      if (saakhisCount) {
-        setSaakhisCount(saakhisCount);
-      }
+      setSaakhisCount(saakhisCount);
 
       if (first) {
         setFirstSaakhi(first);

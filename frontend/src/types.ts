@@ -5,7 +5,7 @@ export interface SaakhiSummary {
 }
 
 export interface InitialDataResponse {
-  saakhisCount: number | null;
+  saakhisCount: number;
   firstSaakhi: SaakhiSummary | null;
   lastReadSaakhi: SaakhiSummary | null;
   likedSaakhis: SaakhiSummary[];
