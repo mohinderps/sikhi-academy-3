@@ -52,7 +52,7 @@ const saakhis = [
 
 export function SaakhiListing() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterGuruJi, setFilterGuruJi] = useState("");
+  const [filterGuruJi] = useState("");
 
   const filteredSaakhis = saakhis.filter(
     (saakhi) =>
@@ -60,9 +60,9 @@ export function SaakhiListing() {
       (filterGuruJi === "" || saakhi.guruJi === filterGuruJi)
   );
 
-  const uniqueGuruJis = Array.from(
-    new Set(saakhis.map((saakhi) => saakhi.guruJi))
-  );
+  // const uniqueGuruJis = Array.from(
+  //   new Set(saakhis.map((saakhi) => saakhi.guruJi))
+  // );
 
   return (
     <div className="min-h-screen bg-orange-50 flex flex-col">
