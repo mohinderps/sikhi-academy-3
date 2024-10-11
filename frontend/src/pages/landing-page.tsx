@@ -19,7 +19,9 @@ export function LandingPage() {
     null
   );
   const [likedSaakhis, setLikedSaakhis] = useState<SaakhiSummary[]>([]);
-  const [bookmakedSaakhis, setBookmakedSaakhis] = useState<SaakhiSummary[]>([]);
+  const [bookmarkedSaakhis, setbookmarkedSaakhis] = useState<SaakhiSummary[]>(
+    []
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +35,7 @@ export function LandingPage() {
         firstSaakhi: first,
         lastReadSaakhi: lastRead,
         likedSaakhis: liked,
-        bookmakedSaakhis: bookmarked,
+        bookmarkedSaakhis: bookmarked,
       } = initialData;
 
       setSaakhisCount(saakhisCount);
@@ -48,12 +50,14 @@ export function LandingPage() {
         setLikedSaakhis(liked);
       }
       if (bookmarked.length > 0) {
-        setBookmakedSaakhis(bookmarked);
+        setbookmarkedSaakhis(bookmarked);
       }
     };
-    if (lastReadSaakhiId || likes.length > 0 || bookmarks.length > 0) {
-      fetchData();
-    }
+    // if (lastReadSaakhiId || likes.length > 0 || bookmarks.length > 0) {
+    //   fetchData();
+    // }
+
+    fetchData();
   }, [lastReadSaakhiId, likes, bookmarks]);
 
   return (
@@ -161,7 +165,7 @@ export function LandingPage() {
               ) : null}
 
               <ul className="space-y-2">
-                {bookmakedSaakhis.slice(0, 5).map((bookmarkedSaakhi) => {
+                {bookmarkedSaakhis.slice(0, 5).map((bookmarkedSaakhi) => {
                   return (
                     <li
                       key={bookmarkedSaakhi.id}

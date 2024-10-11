@@ -1,19 +1,19 @@
 import axios from "axios";
 import { InitialDataResponse, SaakhiResponse } from "@/types";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchInitialData = async (
   lastReadSaakhiId: string | null,
   likedSaakhis: string[],
-  bookmakedSaakhis: string[]
+  bookmarkedSaakhis: string[]
 ) => {
   const response = await axios.post<InitialDataResponse>(
     `${API_URL}/initial-data`,
     {
       lastReadSaakhiId,
       likedSaakhis,
-      bookmakedSaakhis,
+      bookmarkedSaakhis,
     }
   );
   return response.data;

@@ -10,13 +10,13 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get("/ping", (req, res) => {
+app.get("/api/ping", (req, res) => {
   res.send("pong");
 });
 
 app.post("/api/initial-data", (req, res) => {
-  const { lastReadSaakhiId, likedSaakhis, bookmakedSaakhis } = req.body;
-  //   console.log(lastReadSaakhiId, likedSaakhis, bookmakedSaakhis);
+  const { lastReadSaakhiId, likedSaakhis, bookmarkedSaakhis } = req.body;
+  //   console.log(lastReadSaakhiId, likedSaakhis, bookmarkedSaakhis);
   const response = {
     saakhisCount: 1,
     firstSaakhi: {
@@ -30,7 +30,7 @@ app.post("/api/initial-data", (req, res) => {
       guruJiName: "Guru Nanak Dev Ji",
     },
     likedSaakhis: [],
-    bookmakedSaakhis: [],
+    bookmarkedSaakhis: [],
   };
   res.json(response);
 });

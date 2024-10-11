@@ -9,7 +9,7 @@ export interface InitialDataResponse {
   firstSaakhi: SaakhiSummary | null;
   lastReadSaakhi: SaakhiSummary | null;
   likedSaakhis: SaakhiSummary[];
-  bookmakedSaakhis: SaakhiSummary[];
+  bookmarkedSaakhis: SaakhiSummary[];
 }
 
 export interface SaakhiResponse {
