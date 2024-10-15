@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+ENV VITE_API_URL=https://sikhiacademy.com/api
+
 RUN npm run build
 
 FROM nginx:alpine
