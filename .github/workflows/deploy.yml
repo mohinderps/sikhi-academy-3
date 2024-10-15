@@ -89,7 +89,7 @@ jobs:
 
   deploy-frontend:
     name: Deploy Frontend
-    needs: check-changes
+    needs: [check-changes, deploy-backend]
     if: needs.check-changes.outputs.frontend_changed == 'true'
     runs-on: ubuntu-latest
     environment: production
