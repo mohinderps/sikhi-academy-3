@@ -15,6 +15,7 @@ env:
   ECS_FRONTEND_TASK_DEFINITION: .aws/frontend-task-definition.json
   BACKEND_CONTAINER_NAME: sikhi-academy-backend
   FRONTEND_CONTAINER_NAME: sikhi-academy-frontend
+  VITE_API_URL: https://sikhiacademy.com/api
 
 permissions:
   contents: read
