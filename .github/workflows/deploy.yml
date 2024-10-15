@@ -20,8 +20,27 @@ permissions:
   contents: read
 
 jobs:
+  check-changes:
+    name: Check for changes
+    runs-on: ubuntu-latest
+    outputs:
+      backend_changed: ${{ steps.filter.outputs.backend }}
+      frontend_changed: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+            frontend:
+              - 'frontend/**'
+
   deploy-backend:
     name: Deploy Backend
+    needs: check-changes
+    if: needs.check-changes.outputs.backend_changed == 'true'
     runs-on: ubuntu-latest
     environment: production
 
@@ -70,7 +89,8 @@ jobs:
 
   deploy-frontend:
     name: Deploy Frontend
-    needs: deploy-backend
+    needs: check-changes
+    if: needs.check-changes.outputs.frontend_changed == 'true'
     runs-on: ubuntu-latest
     environment: production
 
