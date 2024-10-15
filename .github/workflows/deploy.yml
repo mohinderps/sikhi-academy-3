@@ -90,7 +90,10 @@ jobs:
   deploy-frontend:
     name: Deploy Frontend
     needs: [check-changes, deploy-backend]
-    if: needs.check-changes.outputs.frontend_changed == 'true'
+    if: |
+      always() &&
+      (needs.check-changes.outputs.frontend_changed == 'true' || needs.check-changes.outputs.backend_changed == 'true') &&
+      (needs.deploy-backend.result == 'success' || needs.deploy-backend.result == 'skipped')
     runs-on: ubuntu-latest
     environment: production
 
