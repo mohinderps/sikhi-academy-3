@@ -8,6 +8,7 @@ export const fetchInitialData = async (
   likedSaakhis: string[],
   bookmarkedSaakhis: string[]
 ) => {
+  console.log("test");
   const response = await axios.post<InitialDataResponse>(
     `${API_URL}/initial-data`,
     {
