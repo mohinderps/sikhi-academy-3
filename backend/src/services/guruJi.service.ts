@@ -12,6 +12,12 @@ export const guruJiService = {
     });
   },
 
+  addGuruJi: async (data: Pick<GuruJi, "order" | "name">): Promise<GuruJi> => {
+    return prisma.guruJi.create({
+      data,
+    });
+  },
+
   updateGuruJi: async (id: string, data: Partial<GuruJi>): Promise<GuruJi> => {
     return prisma.guruJi.update({
       where: { id },

@@ -24,6 +24,16 @@ export const getGuruJiById = async (req: Request, res: Response) => {
   }
 };
 
+export const addGuruJi = async (req: Request, res: Response) => {
+  try {
+    const { order, name } = req.body;
+    const newGuruJi = await guruJiService.addGuruJi({ order, name });
+    res.status(201).json(newGuruJi);
+  } catch (error) {
+    res.status(400).json({ error: "Failed to add Guru ji" });
+  }
+};
+
 export const updateGuruJi = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

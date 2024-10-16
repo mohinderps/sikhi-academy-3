@@ -3,6 +3,7 @@ import { adminAuth } from "../middlewares/auth";
 import {
   getAllGuruJis,
   getGuruJiById,
+  addGuruJi,
   updateGuruJi,
   deleteGuruJi,
 } from "../controllers/admin.guruJi.controller";
@@ -13,6 +14,7 @@ router.use(adminAuth);
 
 router.get("/", getAllGuruJis);
 router.get("/:id", getGuruJiById);
+router.post("/", addGuruJi);
 router.put("/:id", updateGuruJi);
 router.delete("/:id", deleteGuruJi);
 
