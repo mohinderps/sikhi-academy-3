@@ -1,11 +1,11 @@
 import express from "express";
-import { adminAuth } from "../../middlewares/auth";
+import { adminAuth } from "../middlewares/auth";
 import {
   getAllGuruJis,
   getGuruJiById,
   updateGuruJi,
   deleteGuruJi,
-} from "../../controllers/guruJiController";
+} from "../controllers/admin.guruJi.controller";
 
 const router = express.Router();
 

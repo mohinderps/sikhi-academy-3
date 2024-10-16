@@ -1,11 +1,11 @@
 import express from "express";
-import { adminAuth } from "../../middlewares/auth";
+import { adminAuth } from "../middlewares/auth";
 import {
   addSaakhi,
   getSaakhiById,
   updateSaakhi,
   deleteSaakhi,
-} from "../../controllers/saakhiController";
+} from "../controllers/admin.saakhi.controller";
 
 const router = express.Router();
 

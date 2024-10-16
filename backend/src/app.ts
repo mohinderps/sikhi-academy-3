@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import adminSaakhiRoutes from "./routes/admin/saakhi";
-import adminGuruJiRoutes from "./routes/admin/guruJi";
+// import adminSaakhiRoutes from "./routes/admin/saakhi";
+import adminGuruJiRoutes from "./routes/admin.guruJi.router";
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(
 
 app.use(express.json());
 
-app.use("/api/admin/saakhi", adminSaakhiRoutes);
+// app.use("/api/admin/saakhi", adminSaakhiRoutes);
 app.use("/api/admin/guru-ji", adminGuruJiRoutes);
 
 app.get("/api/ping", (req, res) => {
@@ -42,16 +42,15 @@ app.post("/api/initial-data", (req, res) => {
   res.json(response);
 });
 
-app.get("/api/saakhis/:id", (req, res) => {
-  const { id } = req.params;
-  //   console.log(id);
-  const saakhi = {
-    id: "1",
-    title: "Saakhi 1",
-    content: "Content of Saakhi 1",
-    guruJiName: "Guru Nanak Dev Ji",
-  };
-  res.json(saakhi);
-});
+// app.get("/api/saakhis/:id", (req, res) => {
+//   const { id } = req.params;
+//   const saakhi = {
+//     id: "1",
+//     title: "Saakhi 1",
+//     content: "Content of Saakhi 1",
+//     guruJiName: "Guru Nanak Dev Ji",
+//   };
+//   res.json(saakhi);
+// });
 
 export default app;
