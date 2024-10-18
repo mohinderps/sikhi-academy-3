@@ -6,7 +6,7 @@ import {
   addGuruJi,
   updateGuruJi,
   deleteGuruJi,
-} from "../controllers/admin.guruJi.controller";
+} from "../controllers/guruJi.controller";
 
 const router = express.Router();
 

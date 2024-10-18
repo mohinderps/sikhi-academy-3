@@ -9,17 +9,17 @@ export const fetchInitialData = async (
   bookmarkedSaakhis: string[]
 ) => {
   const response = await axios.post<InitialDataResponse>(
-    `${API_URL}/initial-data`,
+    `${API_URL}/misc/initial-data`,
     {
       lastReadSaakhiId,
-      likedSaakhis,
-      bookmarkedSaakhis,
+      likedSaakhiIds: likedSaakhis,
+      bookmarkedSaakhiIds: bookmarkedSaakhis,
     }
   );
   return response.data;
 };
 
 export const fetchSaakhiById = async (id: string) => {
-  const response = await axios.get<SaakhiResponse>(`${API_URL}/saakhis/${id}`);
+  const response = await axios.get<SaakhiResponse>(`${API_URL}/saakhi/${id}`);
   return response.data;
 };
