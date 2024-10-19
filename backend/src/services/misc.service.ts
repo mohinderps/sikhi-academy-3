@@ -1,72 +1,65 @@
 import prisma from "../config/database";
-
-type SaakhiSummary = {
-  id: string;
-  title: string;
-  guruJi: {
-    name: string;
-  };
-};
-
-type InitialData = {
-  saakhisCount: number;
-  firstSaakhi: SaakhiSummary | null;
-  lastReadSaakhi: SaakhiSummary | null;
-  likedSaakhis: SaakhiSummary[];
-  bookmarkedSaakhis: SaakhiSummary[];
-};
+import { InitialData, InitialDataRequestDto, SaakhiWithGuruJi } from "../types";
 
 export const miscService = {
   getInitialData: async (
-    lastReadSaakhiId?: string,
-    likedSaakhiIds?: string[],
-    bookmarkedSaakhiIds?: string[]
+    params: InitialDataRequestDto
   ): Promise<InitialData> => {
-    const saakhisCount = await prisma.saakhi.count();
+    const {
+      lastReadSaakhiId,
+      likedSaakhiIds = [],
+      bookmarkedSaakhiIds = [],
+    } = params;
 
-    const firstSaakhi = await prisma.saakhi.findFirst({
-      orderBy: { sequence: "asc" },
-      select: {
-        id: true,
-        title: true,
-        guruJi: { select: { name: true } },
-      },
-    });
-
-    const lastReadSaakhi = lastReadSaakhiId
-      ? await prisma.saakhi.findUnique({
-          where: { id: lastReadSaakhiId },
-          select: {
-            id: true,
-            title: true,
-            guruJi: { select: { name: true } },
-          },
-        })
-      : null;
-
-    const likedSaakhis =
-      likedSaakhiIds && likedSaakhiIds.length > 0
-        ? await prisma.saakhi.findMany({
+    const [
+      saakhisCount,
+      firstSaakhi,
+      lastReadSaakhi,
+      likedSaakhis,
+      bookmarkedSaakhis,
+    ]: [
+      number,
+      SaakhiWithGuruJi | null,
+      SaakhiWithGuruJi | null,
+      SaakhiWithGuruJi[],
+      SaakhiWithGuruJi[]
+    ] = await Promise.all([
+      prisma.saakhi.count(),
+      prisma.saakhi.findFirst({
+        orderBy: {
+          sequence: "asc",
+        },
+        include: {
+          guruJi: true,
+        },
+      }),
+      lastReadSaakhiId
+        ? prisma.saakhi.findUnique({
+            where: {
+              id: lastReadSaakhiId,
+            },
+            include: {
+              guruJi: true,
+            },
+          })
+        : Promise.resolve(null),
+      likedSaakhiIds.length > 0
+        ? prisma.saakhi.findMany({
             where: { id: { in: likedSaakhiIds } },
-            select: {
-              id: true,
-              title: true,
-              guruJi: { select: { name: true } },
+            include: {
+              guruJi: true,
             },
           })
-        : [];
-
-    const bookmarkedSaakhis =
-      bookmarkedSaakhiIds && bookmarkedSaakhiIds.length > 0
-        ? await prisma.saakhi.findMany({
+        : Promise.resolve([]),
+      bookmarkedSaakhiIds.length > 0
+        ? prisma.saakhi.findMany({
             where: { id: { in: bookmarkedSaakhiIds } },
-            select: {
-              id: true,
-              title: true,
-              guruJi: { select: { name: true } },
+            include: {
+              guruJi: true,
             },
           })
-        : [];
+        : Promise.resolve([]),
+    ]);
 
     return {
       saakhisCount,

@@ -1,9 +1,12 @@
 import prisma from "../config/database";
 import { GuruJi } from "@prisma/client";
+import { CreateGuruJiDto, UpdateGuruJiDto } from "../types";
 
 export const guruJiService = {
   getAllGuruJis: async (): Promise<GuruJi[]> => {
-    return prisma.guruJi.findMany();
+    return prisma.guruJi.findMany({
+      orderBy: { order: "asc" },
+    });
   },
 
   getGuruJiById: async (id: string): Promise<GuruJi | null> => {
@@ -12,13 +15,13 @@ export const guruJiService = {
     });
   },
 
-  addGuruJi: async (data: Pick<GuruJi, "order" | "name">): Promise<GuruJi> => {
+  addGuruJi: async (data: CreateGuruJiDto): Promise<GuruJi> => {
     return prisma.guruJi.create({
       data,
     });
   },
 
-  updateGuruJi: async (id: string, data: Partial<GuruJi>): Promise<GuruJi> => {
+  updateGuruJi: async (id: string, data: UpdateGuruJiDto): Promise<GuruJi> => {
     return prisma.guruJi.update({
       where: { id },
       data,

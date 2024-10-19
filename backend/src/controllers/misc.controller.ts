@@ -1,15 +1,13 @@
 import { Request, Response } from "express";
 import { miscService } from "../services/misc.service";
+import { InitialDataRequestDto, InitialDataResponseDto } from "../types";
 
 export const getInitialData = async (req: Request, res: Response) => {
-  const { lastReadSaakhiId, likedSaakhiIds, bookmarkedSaakhiIds } = req.body;
+  const params: InitialDataRequestDto = req.body;
 
   try {
-    const initialData = await miscService.getInitialData(
-      lastReadSaakhiId,
-      likedSaakhiIds,
-      bookmarkedSaakhiIds
-    );
+    const initialData: InitialDataResponseDto =
+      await miscService.getInitialData(params);
 
     res.json(initialData);
   } catch (error) {
