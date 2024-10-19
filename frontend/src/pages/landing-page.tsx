@@ -53,9 +53,6 @@ export function LandingPage() {
         setbookmarkedSaakhis(bookmarked);
       }
     };
-    // if (lastReadSaakhiId || likes.length > 0 || bookmarks.length > 0) {
-    //   fetchData();
-    // }
 
     fetchData();
   }, [lastReadSaakhiId, likes, bookmarks]);
@@ -81,7 +78,7 @@ export function LandingPage() {
                 </p>
                 <div className="text-sm text-gray-500">
                   <p>Title: {firstSaakhi.title}</p>
-                  <p>Guru ji: {firstSaakhi.guruJiName}</p>
+                  <p>Guru ji: {firstSaakhi.guruJi.name}</p>
                 </div>
               </CardContent>
               <CardFooter>
@@ -109,7 +106,7 @@ export function LandingPage() {
                 </p>
                 <div className="text-sm text-gray-500">
                   <p>Title: {lastReadSaakhi.title}</p>
-                  <p>Guru ji: {lastReadSaakhi.guruJiName}</p>
+                  <p>Guru ji: {lastReadSaakhi.guruJi.name}</p>
                 </div>
               </CardContent>
               <CardFooter>
@@ -178,7 +175,7 @@ export function LandingPage() {
                         {bookmarkedSaakhi.title}
                       </Link>
                       <p className="text-sm text-gray-500">
-                        {bookmarkedSaakhi.guruJiName}
+                        {bookmarkedSaakhi.guruJi.name}
                       </p>
                     </li>
                   );
@@ -222,7 +219,7 @@ export function LandingPage() {
                         {likedSaakhi.title}
                       </Link>
                       <p className="text-sm text-gray-500">
-                        {likedSaakhi.guruJiName}
+                        {likedSaakhi.guruJi.name}
                       </p>
                     </li>
                   );

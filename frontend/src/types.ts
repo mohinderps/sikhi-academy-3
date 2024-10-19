@@ -1,7 +1,9 @@
 export interface SaakhiSummary {
   id: string;
   title: string;
-  guruJiName: string;
+  guruJi: {
+    name: string;
+  };
 }
 
 export interface InitialDataResponse {
