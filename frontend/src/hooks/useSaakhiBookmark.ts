@@ -1,4 +1,5 @@
 import { useBookmarks } from "./useBookmarks";
+import { trackSaakhiBookmark } from "@/utils/analytics";
 
 export const useSaakhiBookmark = (saakhiId: string) => {
   const { isBookmarked, addBookmark, removeBookmark } = useBookmarks();
@@ -10,6 +11,7 @@ export const useSaakhiBookmark = (saakhiId: string) => {
       removeBookmark(saakhiId);
     } else {
       addBookmark(saakhiId);
+      trackSaakhiBookmark(saakhiId);
     }
   };
 

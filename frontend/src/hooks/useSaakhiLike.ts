@@ -1,4 +1,5 @@
 import { useLikes } from "./useLikes";
+import { trackSaakhiLike } from "@/utils/analytics";
 
 export const useSaakhiLike = (saakhiId: string) => {
   const { isLiked, addLike, removeLike } = useLikes();
@@ -10,6 +11,7 @@ export const useSaakhiLike = (saakhiId: string) => {
       removeLike(saakhiId);
     } else {
       addLike(saakhiId);
+      trackSaakhiLike(saakhiId);
     }
   };
 
