@@ -1,12 +1,12 @@
 import express from "express";
-import { adminAuth } from "../middlewares/auth";
+import { adminAuth } from "../../middlewares/auth";
 import {
   addSaakhi,
   getAllSaakhis,
-  getAdminSaakhiById,
+  getSaakhiById,
   updateSaakhi,
   deleteSaakhi,
-} from "../controllers/saakhi.controller";
+} from "./admin.saakhi.controller";
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.use(adminAuth);
 
 router.post("/", addSaakhi);
 router.get("/", getAllSaakhis);
-router.get("/:id", getAdminSaakhiById);
+router.get("/:id", getSaakhiById);
 router.put("/:id", updateSaakhi);
 router.delete("/:id", deleteSaakhi);
 

@@ -1,19 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 
 export function useLastReadSaakhi() {
-  const [lastReadSaakhiId, setLastReadSaakhiId] = useState<string | null>(null);
+  const [lastReadSaakhiId, setLastReadSaakhiId] = useState<string | null>(
+    () => localStorage.getItem("lastReadSaakhi") || null
+  );
 
-  useEffect(() => {
-    const storedLastRead = localStorage.getItem("lastReadSaakhi");
-    if (storedLastRead) {
-      setLastReadSaakhiId(storedLastRead);
-    }
-  }, []);
-
-  const updateLastReadSaakhi = (saakhiId: string) => {
+  const updateLastReadSaakhi = useCallback((saakhiId: string) => {
     setLastReadSaakhiId(saakhiId);
     localStorage.setItem("lastReadSaakhi", saakhiId);
-  };
+  }, []);
 
   return { lastReadSaakhiId, updateLastReadSaakhi };
 }

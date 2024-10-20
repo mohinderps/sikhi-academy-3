@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const useBookmarks = () => {
-  const [bookmarks, setBookmarks] = useState<string[]>([]);
-
-  useEffect(() => {
+  const [bookmarks, setBookmarks] = useState<string[]>(() => {
     const storedBookmarks = localStorage.getItem("bookmarks");
-    if (storedBookmarks) {
-      setBookmarks(JSON.parse(storedBookmarks));
-    }
-  }, []);
+    return storedBookmarks ? JSON.parse(storedBookmarks) : [];
+  });
 
   const addBookmark = (id: string) => {
     const newBookmarks = [...bookmarks, id];

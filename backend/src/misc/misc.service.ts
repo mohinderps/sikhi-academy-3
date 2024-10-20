@@ -1,5 +1,6 @@
 import prisma from "../config/database";
-import { InitialData, InitialDataRequestDto, SaakhiWithGuruJi } from "../types";
+import { SaakhiWithGuruJi } from "../types";
+import { InitialDataRequestDto, InitialData } from "./misc.types";
 
 export const miscService = {
   getInitialData: async (

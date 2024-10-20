@@ -1,8 +1,8 @@
-import prisma from "../config/database";
+import prisma from "../../config/database";
 import { GuruJi } from "@prisma/client";
-import { CreateGuruJiDto, UpdateGuruJiDto } from "../types";
+import { CreateGuruJiDto, UpdateGuruJiDto } from "./admin.guru-ji.types";
 
-export const guruJiService = {
+export const adminGuruJiService = {
   getAllGuruJis: async (): Promise<GuruJi[]> => {
     return prisma.guruJi.findMany({
       orderBy: { order: "asc" },

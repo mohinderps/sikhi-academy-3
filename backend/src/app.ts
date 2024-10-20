@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
-import adminSaakhiRoutes from "./routes/admin.saakhi.routes";
-import adminGuruJiRoutes from "./routes/admin.guruJi.routes";
-import saakhiRoutes from "./routes/saakhi.routes";
-import miscRoutes from "./routes/misc.routes";
+import adminSaakhiRoutes from "./admin/saakhi/admin.saakhi.routes";
+import adminGuruJiRoutes from "./admin/guru-ji/admin.guru-ji.routes";
+import saakhiRoutes from "./saakhi/saakhi.routes";
+import miscRoutes from "./misc/misc.routes";
 
 const app = express();
 

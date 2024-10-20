@@ -2,8 +2,13 @@ export interface SaakhiSummary {
   id: string;
   title: string;
   guruJi: {
+    id: string;
     name: string;
   };
+}
+
+export interface SaakhiSummaryWithContent extends SaakhiSummary {
+  content: string;
 }
 
 export interface InitialDataResponse {
@@ -15,8 +20,7 @@ export interface InitialDataResponse {
 }
 
 export interface SaakhiResponse {
-  id: string;
-  title: string;
-  content: string;
-  guruJiName: string;
+  currentSaakhi: SaakhiSummaryWithContent | null;
+  previousSaakhi: SaakhiSummary | null;
+  nextSaakhi: SaakhiSummary | null;
 }

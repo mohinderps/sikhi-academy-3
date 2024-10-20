@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const useLikes = () => {
-  const [likes, setLikes] = useState<string[]>([]);
-
-  useEffect(() => {
+  const [likes, setLikes] = useState<string[]>(() => {
     const storedLikes = localStorage.getItem("likes");
-    if (storedLikes) {
-      setLikes(JSON.parse(storedLikes));
-    }
-  }, []);
+    return storedLikes ? JSON.parse(storedLikes) : [];
+  });
 
   const addLike = (id: string) => {
     const newLikes = [...likes, id];

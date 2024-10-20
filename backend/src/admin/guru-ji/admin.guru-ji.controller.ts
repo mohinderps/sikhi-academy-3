@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { guruJiService } from "../services/guruJi.service";
-import { CreateGuruJiDto, UpdateGuruJiDto } from "../types";
+import { adminGuruJiService } from "./admin.guru-ji.service";
+import { CreateGuruJiDto, UpdateGuruJiDto } from "./admin.guru-ji.types";
 import { GuruJi } from "@prisma/client";
 
 export const getAllGuruJis = async (req: Request, res: Response) => {
   try {
-    const allGuruJis: GuruJi[] = await guruJiService.getAllGuruJis();
+    const allGuruJis: GuruJi[] = await adminGuruJiService.getAllGuruJis();
     res.json(allGuruJis);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch Guru jis" });
@@ -15,7 +15,7 @@ export const getAllGuruJis = async (req: Request, res: Response) => {
 export const getGuruJiById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const guruJi: GuruJi | null = await guruJiService.getGuruJiById(id);
+    const guruJi: GuruJi | null = await adminGuruJiService.getGuruJiById(id);
     if (guruJi) {
       res.json(guruJi);
     } else {
@@ -29,7 +29,10 @@ export const getGuruJiById = async (req: Request, res: Response) => {
 export const addGuruJi = async (req: Request, res: Response) => {
   try {
     const { order, name }: CreateGuruJiDto = req.body;
-    const newGuruJi: GuruJi = await guruJiService.addGuruJi({ order, name });
+    const newGuruJi: GuruJi = await adminGuruJiService.addGuruJi({
+      order,
+      name,
+    });
     res.status(201).json(newGuruJi);
   } catch (error) {
     res.status(400).json({ error: "Failed to add Guru ji" });
@@ -40,7 +43,7 @@ export const updateGuruJi = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { order, name }: UpdateGuruJiDto = req.body;
-    const updatedGuruJi: GuruJi = await guruJiService.updateGuruJi(id, {
+    const updatedGuruJi: GuruJi = await adminGuruJiService.updateGuruJi(id, {
       order,
       name,
     });
@@ -55,7 +58,7 @@ export const updateGuruJi = async (req: Request, res: Response) => {
 export const deleteGuruJi = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    await guruJiService.deleteGuruJi(id);
+    await adminGuruJiService.deleteGuruJi(id);
     res.status(204).send();
   } catch (error) {
     res.status(400).json({ error: "Failed to delete Guru ji" });
