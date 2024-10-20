@@ -141,34 +141,39 @@ export function SaakhiPage() {
         </CardContent>
       </Card>
 
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-x-0 sm:gap-x-3 gap-y-3 sm:gap-y-0">
-        {previousSaakhi ? (
-          <Button
-            asChild
-            variant="outline"
-            className="order-last sm:order-first"
-          >
-            <Link to={`/saakhis/${previousSaakhi.id}`}>
-              <ChevronLeftIcon className="mr-2 h-4 w-4" />
-              Previous: {previousSaakhi.title}
-            </Link>
-          </Button>
-        ) : (
-          <div></div>
-        )}
-        {nextSaakhi && (
-          <Button
-            asChild
-            variant="outline"
-            className="order-first sm:order-last"
-          >
-            <Link to={`/saakhis/${nextSaakhi.id}`}>
-              Next: {nextSaakhi.title}
-              <ChevronRightIcon className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        )}
-      </div>
+      {showSaakhiQueue ? (
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-x-0 sm:gap-x-3 gap-y-3 sm:gap-y-0">
+          {previousSaakhi ? (
+            <Button
+              asChild
+              variant="outline"
+              className="order-last sm:order-first"
+            >
+              <Link
+                to={`/saakhis/${previousSaakhi.id}`}
+                state={showSaakhiQueue}
+              >
+                <ChevronLeftIcon className="mr-2 h-4 w-4" />
+                Previous: {previousSaakhi.title}
+              </Link>
+            </Button>
+          ) : (
+            <div></div>
+          )}
+          {nextSaakhi && (
+            <Button
+              asChild
+              variant="outline"
+              className="order-first sm:order-last"
+            >
+              <Link to={`/saakhis/${nextSaakhi.id}`} state={showSaakhiQueue}>
+                Next: {nextSaakhi.title}
+                <ChevronRightIcon className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          )}
+        </div>
+      ) : null}
     </Layout>
   );
 }
