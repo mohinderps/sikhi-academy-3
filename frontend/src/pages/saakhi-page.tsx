@@ -151,7 +151,7 @@ export function SaakhiPage() {
             >
               <Link
                 to={`/saakhis/${previousSaakhi.id}`}
-                state={showSaakhiQueue}
+                state={{ showSaakhiQueue }}
               >
                 <ChevronLeftIcon className="mr-2 h-4 w-4" />
                 Previous: {previousSaakhi.title}
@@ -166,7 +166,10 @@ export function SaakhiPage() {
               variant="outline"
               className="order-first sm:order-last"
             >
-              <Link to={`/saakhis/${nextSaakhi.id}`} state={showSaakhiQueue}>
+              <Link
+                to={`/saakhis/${nextSaakhi.id}`}
+                state={{ showSaakhiQueue }}
+              >
                 Next: {nextSaakhi.title}
                 <ChevronRightIcon className="ml-2 h-4 w-4" />
               </Link>
