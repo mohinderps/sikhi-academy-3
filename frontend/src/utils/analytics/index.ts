@@ -5,13 +5,13 @@ import { AnalyticsActions } from "./actions";
 const isProduction = import.meta.env.PROD;
 
 export const initGA = (measurementId: string) => {
-  if (isProduction) {
+  if (false) {
     ReactGA.initialize(measurementId);
   }
 };
 
 export const trackPageView = (path: string) => {
-  if (isProduction) {
+  if (false) {
     ReactGA.send({ hitType: "pageview", page: path });
   }
 };
@@ -21,7 +21,7 @@ export const trackEvent = (
   action: AnalyticsActions,
   label: string
 ) => {
-  if (isProduction) {
+  if (false) {
     ReactGA.event({
       category,
       action,
