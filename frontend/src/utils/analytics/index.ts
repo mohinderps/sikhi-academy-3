@@ -2,8 +2,6 @@ import ReactGA from "react-ga4";
 import { AnalyticsCategories } from "./categories";
 import { AnalyticsActions } from "./actions";
 
-const isProduction = import.meta.env.PROD;
-
 export const initGA = (measurementId: string) => {
   if (false) {
     ReactGA.initialize(measurementId);

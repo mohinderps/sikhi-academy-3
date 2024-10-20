@@ -8,6 +8,8 @@ const router = createBrowserRouter(routes);
 const App = () => {
   useEffect(() => {
     initGA(import.meta.env.VITE_GA_MEASUREMENT_ID);
+    console.log("1", import.meta.env);
+    console.log("2", process.env);
   }, []);
 
   return <RouterProvider router={router} />;
