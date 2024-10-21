@@ -2,14 +2,17 @@ import ReactGA from "react-ga4";
 import { AnalyticsCategories } from "./categories";
 import { AnalyticsActions } from "./actions";
 
-export const initGA = (measurementId: string) => {
-  if (false) {
+const isProduction = import.meta.env.PROD;
+
+export const initGA = () => {
+  if (isProduction) {
+    const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
     ReactGA.initialize(measurementId);
   }
 };
 
 export const trackPageView = (path: string) => {
-  if (false) {
+  if (isProduction) {
     ReactGA.send({ hitType: "pageview", page: path });
   }
 };
@@ -19,7 +22,7 @@ export const trackEvent = (
   action: AnalyticsActions,
   label: string
 ) => {
-  if (false) {
+  if (isProduction) {
     ReactGA.event({
       category,
       action,

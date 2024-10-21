@@ -9,6 +9,7 @@ RUN npm install
 COPY . .
 
 ENV VITE_API_URL=https://sikhiacademy.com/api
+ENV VITE_GA_MEASUREMENT_ID=G-JCP30ZY25R
 
 RUN npm run build
 
