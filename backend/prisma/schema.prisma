@@ -20,6 +20,8 @@ model Saakhi {
   guruJi   GuruJi @relation(fields: [guruJiId], references: [id])
   guruJiId String
   sequence Int    @unique
+  desktopImageUrl String?
+  mobileImageUrl String?
 }
 
 model GuruJi {

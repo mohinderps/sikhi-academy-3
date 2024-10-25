@@ -7,6 +7,13 @@ export interface CreateSaakhiDto {
   sequence: number;
 }
 
+export interface ImageUrls {
+  desktopImageUrl?: string;
+  mobileImageUrl?: string;
+}
+
+export interface CreateSaakhiWithImagesDto extends CreateSaakhiDto, ImageUrls {}
+
 export interface UpdateSaakhiDto {
   title?: string;
   content?: string;

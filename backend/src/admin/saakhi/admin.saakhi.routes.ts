@@ -1,4 +1,5 @@
 import express from "express";
+import multer from "multer";
 import { adminAuth } from "../../middlewares/auth";
 import {
   addSaakhi,
@@ -7,12 +8,15 @@ import {
   updateSaakhi,
   deleteSaakhi,
 } from "./admin.saakhi.controller";
+import { processAndUploadImage } from "../../middlewares/process-and-upload-image";
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = express.Router();
 
 router.use(adminAuth);
 
-router.post("/", addSaakhi);
+router.post("/", upload.single("image"), processAndUploadImage, addSaakhi);
 router.get("/", getAllSaakhis);
 router.get("/:id", getSaakhiById);
 router.put("/:id", updateSaakhi);

@@ -1,5 +1,9 @@
 import prisma from "../../config/database";
-import { CreateSaakhiDto, UpdateSaakhiDto } from "./admin.saakhi.types";
+import {
+  CreateSaakhiDto,
+  CreateSaakhiWithImagesDto,
+  UpdateSaakhiDto,
+} from "./admin.saakhi.types";
 import { SaakhiWithGuruJi } from "../../types";
 
 export const adminSaakhiService = {
@@ -17,7 +21,9 @@ export const adminSaakhiService = {
     });
   },
 
-  addSaakhi: async (data: CreateSaakhiDto): Promise<SaakhiWithGuruJi> => {
+  addSaakhi: async (
+    data: CreateSaakhiWithImagesDto
+  ): Promise<SaakhiWithGuruJi> => {
     return prisma.saakhi.create({
       data,
       include: { guruJi: true },

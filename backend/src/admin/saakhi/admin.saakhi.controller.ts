@@ -5,7 +5,12 @@ import { CreateSaakhiDto, UpdateSaakhiDto } from "./admin.saakhi.types";
 export const addSaakhi = async (req: Request, res: Response) => {
   try {
     const saakhiData: CreateSaakhiDto = req.body;
-    const newSaakhi = await adminSaakhiService.addSaakhi(saakhiData);
+    const { desktopImageUrl, mobileImageUrl } = req.imageUrls || {};
+    const newSaakhi = await adminSaakhiService.addSaakhi({
+      ...saakhiData,
+      desktopImageUrl,
+      mobileImageUrl,
+    });
     res.status(201).json(newSaakhi);
   } catch (error) {
     res.status(400).json({ error: "Failed to create Saakhi" });
