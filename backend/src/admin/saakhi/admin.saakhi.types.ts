@@ -21,6 +21,8 @@ export interface UpdateSaakhiDto {
   sequence?: number;
 }
 
+export interface UpdateSaakhiWithImagesDto extends UpdateSaakhiDto, ImageUrls {}
+
 export interface SaakhiSummary {
   id: string;
   title: string;

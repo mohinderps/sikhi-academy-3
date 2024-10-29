@@ -3,6 +3,7 @@ import {
   CreateSaakhiDto,
   CreateSaakhiWithImagesDto,
   UpdateSaakhiDto,
+  UpdateSaakhiWithImagesDto,
 } from "./admin.saakhi.types";
 import { SaakhiWithGuruJi } from "../../types";
 
@@ -32,7 +33,7 @@ export const adminSaakhiService = {
 
   updateSaakhi: async (
     id: string,
-    data: UpdateSaakhiDto
+    data: UpdateSaakhiWithImagesDto
   ): Promise<SaakhiWithGuruJi> => {
     return prisma.saakhi.update({
       where: { id },

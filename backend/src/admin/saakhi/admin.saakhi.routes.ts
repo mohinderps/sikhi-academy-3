@@ -19,7 +19,7 @@ router.use(adminAuth);
 router.post("/", upload.single("image"), processAndUploadImage, addSaakhi);
 router.get("/", getAllSaakhis);
 router.get("/:id", getSaakhiById);
-router.put("/:id", updateSaakhi);
+router.put("/:id", upload.single("image"), processAndUploadImage, updateSaakhi);
 router.delete("/:id", deleteSaakhi);
 
 export default router;

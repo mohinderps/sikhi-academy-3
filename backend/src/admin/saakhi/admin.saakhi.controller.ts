@@ -44,7 +44,12 @@ export const updateSaakhi = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const saakhiData: UpdateSaakhiDto = req.body;
-    const updatedSaakhi = await adminSaakhiService.updateSaakhi(id, saakhiData);
+    const { desktopImageUrl, mobileImageUrl } = req.imageUrls || {};
+    const updatedSaakhi = await adminSaakhiService.updateSaakhi(id, {
+      ...saakhiData,
+      desktopImageUrl,
+      mobileImageUrl,
+    });
     res.json(updatedSaakhi);
   } catch (error) {
     res.status(400).json({

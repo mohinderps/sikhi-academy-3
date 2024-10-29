@@ -43,8 +43,8 @@ export const processAndUploadImage = async (
       .toBuffer();
 
     const timestamp = Date.now();
-    const desktopKey = `saakhi-images/desktop-${timestamp}.${metaData.format}`;
-    const mobileKey = `saakhi-images/mobile-${timestamp}.${metaData.format}`;
+    const desktopKey = `saakhi-images/desktop/${timestamp}.${metaData.format}`;
+    const mobileKey = `saakhi-images/mobile/${timestamp}.${metaData.format}`;
 
     const [desktopImageUrl, mobileImageUrl] = await Promise.all([
       uploadToS3(desktopBuffer, desktopKey, req.file.mimetype),
