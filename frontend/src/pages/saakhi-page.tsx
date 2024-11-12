@@ -17,6 +17,7 @@ import { useSaakhiLike } from "@/hooks/useSaakhiLike";
 import { useFetchSaakhiById } from "@/apis/hooks/useFetchSaakhiById";
 import { useFetchAllSaakhiSummaries } from "@/apis/hooks/useFetchAllSaakhiSummaries";
 import Layout from "@/components/layout";
+import ReactMarkdown from "react-markdown";
 
 export function SaakhiPage() {
   const { id } = useParams<{ id: string }>();
@@ -136,7 +137,9 @@ export function SaakhiPage() {
             </Button>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-inner">
-            <p className="text-lg leading-relaxed">{currentSaakhi.content}</p>
+            <ReactMarkdown className="text-lg leading-relaxed prose">
+              {currentSaakhi.content}
+            </ReactMarkdown>
           </div>
         </CardContent>
       </Card>
